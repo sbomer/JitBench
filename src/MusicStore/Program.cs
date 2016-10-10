@@ -11,6 +11,8 @@ namespace MusicStore
     {
         public static void Main(string[] args)
         {
+            MusicStoreEventSource.Log.EnteringMain();
+
             var totalTime = Stopwatch.StartNew();
 
             var config = new ConfigurationBuilder()
@@ -51,6 +53,8 @@ namespace MusicStore
             var host = builder.Build();
 
             host.Start();
+
+            MusicStoreEventSource.Log.HostStarted();
 
             totalTime.Stop();
             Console.WriteLine("Server started in {0}ms", totalTime.ElapsedMilliseconds);
