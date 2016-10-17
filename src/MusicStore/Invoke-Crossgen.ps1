@@ -5,7 +5,7 @@
 param(
     [string]$crossgen_path = $null, 
     [string]$runtime = "win7-x64",
-    [string]$sdk_version = "1.0.1")
+    [string]$sdk_version = "1.1.0-preview1-001100-00")
 
 $ErrorActionPreference = "Stop"
 
@@ -25,7 +25,7 @@ if (-not (Test-Path $crossgen_path))
     throw "Could not find crossgen at" + $crossgen_path
 }
 
-$sdk_path = "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\$sdk_version"
+$sdk_path = "$env:LOCALAPPDATA\Microsoft\dotnet\shared\Microsoft.NETCore.App\$sdk_version"
 if (-not (Test-Path $sdk_path))
 {
     throw "Could not find sdk at " + $sdk_path
@@ -47,11 +47,12 @@ else
 
 function Invoke-Crossgen-Core($crossgen_exe, $item, $sdk_dir, $app_paths)
 {
-    $out = Join-Path ($item.DirectoryName) ([io.path]::ChangeExtension($item.Name, ".ni.dll"))
+    $dllDirectory = ($item.DirectoryName);
+    $out = Join-Path ($dllDirectory) ([io.path]::ChangeExtension($item.Name, ".ni.dll"))
 
     $args = @()
     $args += "/Platform_Assemblies_Paths"
-    $args += """$sdk_dir"""
+    $args += """$dllDirectory"";" +  """$sdk_dir"""
 
     $app_path_arg = ""
     for ($i = 0; $i -lt $app_paths.Length; $i++)
