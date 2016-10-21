@@ -5,7 +5,8 @@
 param(
     [string]$crossgen_path = $null, 
     [string]$runtime = "win7-x64",
-    [string]$sdk_version = "1.1.0-preview1-001100-00")
+    [string]$sdk_version = "1.1.0-preview1-001100-00",
+    [bool]$excludeMusicStore = $false)
 
 $ErrorActionPreference = "Stop"
 
@@ -90,6 +91,15 @@ foreach ($app_path in $app_paths)
 {
     foreach ($file in Get-ChildItem $app_path -Filter *.dll)
     {
+        if ($excludeMusicStore -eq $true)
+        {
+            if ($file.Name -like '*MusicStore*')
+            {
+                Write-Host "Skipping $file from cross gen..."
+                continue
+            }
+        }
+
         Invoke-Crossgen-Core $crossgen_path $file $sdk_dir $app_paths
     }
 }
