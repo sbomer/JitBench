@@ -26,7 +26,7 @@ if (-not (Test-Path $crossgen_path))
     throw "Could not find crossgen at" + $crossgen_path
 }
 
-$sdk_path = "$env:LOCALAPPDATA\Microsoft\dotnet\shared\Microsoft.NETCore.App\$sdk_version"
+$sdk_path = "C:\Program Files\dotnet\shared\Microsoft.NETCore.App\$sdk_version"
 if (-not (Test-Path $sdk_path))
 {
     throw "Could not find sdk at " + $sdk_path

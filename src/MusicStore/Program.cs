@@ -13,7 +13,7 @@ namespace MusicStore
         {
             MusicStoreEventSource.Log.EnteringMain();
 
-            var totalTime = Stopwatch.StartNew();
+            //var totalTime = Stopwatch.StartNew();
 
             var config = new ConfigurationBuilder()
                 .AddCommandLine(args)
@@ -23,7 +23,8 @@ namespace MusicStore
             var builder = new WebHostBuilder()
                 .UseConfiguration(config)
                 .UseIISIntegration()
-                .UseStartup("MusicStore");
+                .UseStartup("MusicStore")
+                .CaptureStartupErrors(captureStartupErrors: true);
 
             if (string.Equals(builder.GetSetting("server"), "Microsoft.AspNetCore.Server.WebListener", System.StringComparison.Ordinal))
             {
@@ -52,25 +53,26 @@ namespace MusicStore
 
             var host = builder.Build();
 
-            host.Start();
+            //host.Start();
+            host.Run();
 
             MusicStoreEventSource.Log.HostStarted();
 
-            totalTime.Stop();
-            Console.WriteLine("Server started in {0}ms", totalTime.ElapsedMilliseconds);
-            Console.WriteLine();
+            //totalTime.Stop();
+            //Console.WriteLine("Server started in {0}ms", totalTime.ElapsedMilliseconds);
+            //Console.WriteLine();
 
-            using (var client = new HttpClient())
-            {
-                Console.WriteLine("Starting request to http://localhost:5000");
-                var requestTime = Stopwatch.StartNew();
-                var response = client.GetAsync("http://localhost:5000").Result;
-                requestTime.Stop();
-                Console.WriteLine("Response: {0}", response.StatusCode);
-                Console.WriteLine("Request took {0}ms", requestTime.ElapsedMilliseconds);
-            }
+            //using (var client = new HttpClient())
+            //{
+            //    Console.WriteLine("Starting request to http://localhost:5000");
+            //    var requestTime = Stopwatch.StartNew();
+            //    var response = client.GetAsync("http://localhost:5000").Result;
+            //    requestTime.Stop();
+            //    Console.WriteLine("Response: {0}", response.StatusCode);
+            //    Console.WriteLine("Request took {0}ms", requestTime.ElapsedMilliseconds);
+            //}
 
-            Console.WriteLine();
+            //Console.WriteLine();
         }
     }
 }
