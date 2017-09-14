@@ -22,6 +22,7 @@ namespace MusicStore.Models
         [Required]
         [Range(0.01, 100.00)]
         [Column(TypeName = "decimal(18,2)")]
+
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
