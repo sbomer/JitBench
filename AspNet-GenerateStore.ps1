@@ -1,7 +1,7 @@
 [cmdletbinding()]
 param(
     [string] $InstallDir = "<auto>",
-    [string] $AspNetVersion = "2.0.0",
+    [string] $AspNetVersion = "2.1.0-*",
     [string] $Framework = "netcoreapp2.1",
     [string] $FrameworkVersion = "<auto>",
     [string] $Architecture = "x64",

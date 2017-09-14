@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AspNetCoreVersion>2.0.0</AspNetCoreVersion>
+    <AspNetCoreVersion>2.1.0-*</AspNetCoreVersion>
     <RuntimeFrameworkVersion>2.0.0-*</RuntimeFrameworkVersion>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
